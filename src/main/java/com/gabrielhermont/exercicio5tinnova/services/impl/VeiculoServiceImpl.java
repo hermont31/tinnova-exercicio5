@@ -1,5 +1,6 @@
 package com.gabrielhermont.exercicio5tinnova.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,30 @@ public class VeiculoServiceImpl implements VeiculoService {
 	@Override
 	public Veiculo save(Veiculo veiculo) {
 		if (veiculo.getId() == null) {
+			LocalDateTime dateCreate = LocalDateTime.now();
+			veiculo.setCreated(dateCreate);			
 			Veiculo veiculoSave = repository.save(veiculo);
 			return veiculoSave;
 		} else {
-			return update(veiculo);
+			return update(veiculo,veiculo.getId());
 		}
 	}
 
 	@Override
-	public Veiculo update(Veiculo veiculo) {
-		Veiculo veiculoSave = repository.saveAndFlush(veiculo);
-		return veiculoSave;
+	public Veiculo update(Veiculo veiculo, Integer id) {
+		
+		Veiculo veiculoUpdate = findById(id);
+		LocalDateTime dateUpdate = LocalDateTime.now();
+		veiculoUpdate.setUpdated(dateUpdate);			
+		veiculoUpdate.setAno(veiculo.getAno());
+		veiculoUpdate.setVeiculo(veiculo.getVeiculo());
+		veiculoUpdate.setMarca(veiculo.getMarca());
+		veiculoUpdate.setDescricao(veiculo.getDescricao());
+		veiculoUpdate.setVendido(veiculo.getVendido());
+		veiculoUpdate.setCreated(veiculo.getCreated());
+		Veiculo veiculoUpdate2 = repository.save(veiculoUpdate);
+				
+		return veiculoUpdate2;
 
 	}
 
