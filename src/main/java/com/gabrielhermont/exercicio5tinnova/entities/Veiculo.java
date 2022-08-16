@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
 public class Veiculo implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -22,12 +23,13 @@ public class Veiculo implements Serializable{
 	private Boolean vendido;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	private String cor;
 	
 	public Veiculo(){
 	}
     
 	public Veiculo(Integer id, String veiculo, String marca, Integer ano, String descricao, Boolean vendido,
-			LocalDateTime created, LocalDateTime updated) {
+			LocalDateTime created, LocalDateTime updated, String cor) {
 		super();
 		this.id = id;
 		this.veiculo = veiculo;
@@ -37,6 +39,7 @@ public class Veiculo implements Serializable{
 		this.vendido = vendido;
 		this.created = created;
 		this.updated = updated;
+		this.cor = cor;
 	}
 
 	public Integer getId() {
@@ -118,6 +121,14 @@ public class Veiculo implements Serializable{
 			return false;
 		Veiculo other = (Veiculo) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public String getCor() {
+		return cor;
+	}
+
+	public void setCor(String cor) {
+		this.cor = cor;
 	}
 	
 	
