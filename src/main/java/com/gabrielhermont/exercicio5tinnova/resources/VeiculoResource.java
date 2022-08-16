@@ -12,7 +12,7 @@ import com.gabrielhermont.exercicio5tinnova.entities.Veiculo;
 public class VeiculoResource {
     @GetMapping
 	public ResponseEntity<Veiculo> findAll(){
-		Veiculo v = new Veiculo("uno", "fiat", 1999, "usado", false, null, null);
+		Veiculo v = new Veiculo(1,"uno", "fiat", 1999, "usado", false, null, null);
 		return ResponseEntity.ok().body(v);
 	}
 	
