@@ -2,14 +2,14 @@ package com.gabrielhermont.exercicio5tinnova.services.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
-import org.mockito.Mockito;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +24,7 @@ import com.gabrielhermont.exercicio5tinnova.entities.Veiculo;
 
 @RunWith(SpringRunner.class)
 public class VeiculoServiceImplTest {
+	
 	@TestConfiguration
 	static class VeiculoServiceImplTestConfiguration {
 		
@@ -43,11 +44,9 @@ public class VeiculoServiceImplTest {
 	void testFindAll() {
 		
 		Veiculo veiculo = new Veiculo(null, "gol", "Volks", 2000, "Desgastado", true, null, null, "azul");
-		List<Veiculo> veiculos = new ArrayList<>();
-		veiculos.add(veiculo);
-		Mockito.when(service.findAll()).thenReturn(veiculos);
-		List<Veiculo> veiculos2 = service.findAll();
-		assertTrue(veiculos2.size() > 0);
+		service.save(veiculo);
+		List<Veiculo> veiculos = service.findAll();
+		assertTrue(veiculos.size() > 0);;
 	}
 
 	@Test
