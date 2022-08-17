@@ -6,6 +6,8 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,7 @@ public class VeiculoResource {
 	VeiculoService service;
     
 	@GetMapping
+	@Cacheable(value="listaDeVeiculo")
 	public ResponseEntity<List<Veiculo>> findAll(){
 		List<Veiculo> veiculos = service.findAll();
 		
@@ -42,6 +45,7 @@ public class VeiculoResource {
 	}
 		
 	@PostMapping
+	@CacheEvict(value = "listaDeVeiculos")
 	public ResponseEntity<Veiculo> save(@RequestBody Veiculo veiculo){
 		Veiculo veiculoSave = service.save(veiculo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculoSave.getId())
@@ -50,13 +54,15 @@ public class VeiculoResource {
 	}
 	
 	@DeleteMapping(path = "/{id}")
+	@CacheEvict(value = "listaDeVeiculos")
 	public ResponseEntity<Veiculo> deleteById(@PathVariable Integer id){
 		service.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<Veiculo> save(@RequestBody Veiculo veiculo,@PathVariable Integer id){
+	@CacheEvict(value = "listaDeVeiculos")
+	public ResponseEntity<Veiculo> update(@RequestBody Veiculo veiculo,@PathVariable Integer id){
 		Veiculo veiculoUpdate = service.update(veiculo,id);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculoUpdate.getId())
 				.toUri();

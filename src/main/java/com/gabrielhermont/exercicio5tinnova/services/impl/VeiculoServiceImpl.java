@@ -63,6 +63,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 	public void deleteById(Integer id) {
 		if (repository.findById(id).isPresent()) {
 			repository.deleteById(id);
+			
 		}
 	}
 
